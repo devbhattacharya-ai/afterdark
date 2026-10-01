@@ -1,50 +1,60 @@
 "use client";
 
-import { useState } from "react";
+import { useRef } from "react";
 import Image from "next/image";
 
 export default function PackReveal() {
-  const [open, setOpen] = useState(false);
+  const imgRef = useRef<HTMLImageElement>(null);
+
+  function bounce() {
+    const el = imgRef.current;
+    if (!el || !el.animate) return;
+    if (document.documentElement.dataset.motion === "paused") return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    el.animate(
+      [
+        { transform: "translateY(0) rotate(0deg) scale(1)" },
+        {
+          transform: "translateY(-20px) rotate(9deg) scale(1.055)",
+          offset: 0.35,
+        },
+        {
+          transform: "translateY(-6px) rotate(-4deg) scale(1.02)",
+          offset: 0.7,
+        },
+        { transform: "translateY(0) rotate(0deg) scale(1)" },
+      ],
+      { duration: 760, easing: "cubic-bezier(.2,0,0,1)" }
+    );
+  }
 
   return (
-    <div className={`pack-reveal${open ? " is-open" : ""}`}>
+    <div className="hero-product-wrap">
+      <span className="hero-orbit" aria-hidden="true">
+        85%
+      </span>
       <button
         type="button"
-        className="pack-hit"
-        aria-expanded={open}
-        aria-controls="pack-detail"
-        onClick={() => setOpen((v) => !v)}
+        className="product-control"
+        data-product
+        aria-label="Animate the chocolate pack"
+        aria-describedby="pack-hint"
+        onClick={bounce}
       >
         <Image
-          src="/demo-afterdark.jpg"
-          alt="AFTERDARK 85% dark chocolate pack — tap to reveal concept detail"
-          width={720}
-          height={900}
-          className="pack-image"
-          sizes="(max-width: 768px) 80vw, 360px"
+          ref={imgRef}
+          className="hero-product"
+          src="/pack-v3.webp"
+          alt="AFTERDARK 85% dark chocolate pack"
+          width={1024}
+          height={1536}
           priority
+          sizes="(max-width: 600px) 78vw, 420px"
         />
-        <span className="pack-hint">
-          {open ? "Close detail" : "Touch the dark. Tap the pack."}
-        </span>
       </button>
-
-      <div
-        id="pack-detail"
-        className="pack-detail"
-        hidden={!open}
-        role="region"
-        aria-label="Bar concept detail"
-      >
-        <p className="pack-detail-title">AFTERDARK 85%</p>
-        <p>
-          Concept bar: deep cocoa, slow melt, finish that stays. Flavour
-          profiles — Bold, Roasted, Silky — live further down the page.
-        </p>
-        <a className="btn-text" href="#bar">
-          Continue to The Bar →
-        </a>
-      </div>
+      <p className="pack-hint" id="pack-hint">
+        TOUCH THE DARK. <span>Tap the pack.</span>
+      </p>
     </div>
   );
 }

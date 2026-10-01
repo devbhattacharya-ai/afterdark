@@ -1,50 +1,8 @@
 import Image from "next/image";
 import Header from "@/components/Header";
 import PackReveal from "@/components/PackReveal";
-
-const PROFILES = [
-  {
-    name: "Bold",
-    cocoa: "85%",
-    line: "Deep, unapologetic cocoa with a firm bite and a long, dry finish.",
-    notes: ["Intense cocoa", "Dark fruit hint", "Lingering bitterness"],
-  },
-  {
-    name: "Roasted",
-    cocoa: "85%",
-    line: "Warm roasted notes — like coffee and toasted husk — before the melt softens.",
-    notes: ["Toasted husk", "Espresso edge", "Warm spice"],
-  },
-  {
-    name: "Silky",
-    cocoa: "85%",
-    line: "A slower melt that coats the palate — quiet intensity without harsh edges.",
-    notes: ["Velvet melt", "Subtle sweetness", "Clean close"],
-  },
-] as const;
-
-const RITUAL = [
-  {
-    step: "01",
-    title: "Break",
-    line: "Snap one square. Listen for the clean crack — a sign of well-tempered cocoa.",
-  },
-  {
-    step: "02",
-    title: "Warm",
-    line: "Hold it on the tongue. Let body heat start the melt before you bite.",
-  },
-  {
-    step: "03",
-    title: "Melt",
-    line: "Stay with the slow melt. Notice Bold, then Roasted, then Silky as it opens.",
-  },
-  {
-    step: "04",
-    title: "Finish",
-    line: "Breathe out through the nose. The finish is the story — let it stay.",
-  },
-] as const;
+import TastingNotes from "@/components/TastingNotes";
+import MotionEngine from "@/components/MotionEngine";
 
 export default function HomePage() {
   return (
@@ -53,195 +11,175 @@ export default function HomePage() {
         Skip to content
       </a>
 
-      <div id="top">
-        <Header />
-      </div>
+      <Header />
+      <MotionEngine />
 
       <main id="main">
-        {/* Hero */}
-        <section className="hero" aria-labelledby="hero-heading">
-          <div className="hero-bg-glow" aria-hidden="true" />
-          <p className="hero-pct" aria-hidden="true">
-            85%
-          </p>
-
-          <div className="hero-inner">
-            <div className="hero-copy">
-              <p className="eyebrow">Dark chocolate · 85% cocoa</p>
-              <h1 id="hero-heading">GO DARK.</h1>
-              <p className="hero-support">
-                Deep cocoa. A slow melt. A finish that stays.
-              </p>
-              <div className="hero-actions">
-                <a className="btn-primary" href="#bar">
-                  Discover the bar
-                  <span aria-hidden="true"> ↓</span>
-                </a>
-                <a className="btn-text" href="#tasting">
-                  Tasting notes
-                </a>
-              </div>
-              <p className="concept-chip">
-                Self-initiated concept demo. Not a live store.
-              </p>
-            </div>
-
-            <div className="hero-visual">
-              <PackReveal />
-              <p className="scroll-hint">
-                <span className="scroll-arrow" aria-hidden="true">
-                  ↓
-                </span>
-                Scroll to discover
-              </p>
-            </div>
-          </div>
-        </section>
-
-        {/* The Bar */}
-        <section id="bar" className="section bar-section" aria-labelledby="bar-heading">
-          <div className="section-inner bar-grid">
-            <div className="bar-media">
-              <Image
-                src="/demo-afterdark.jpg"
-                alt="AFTERDARK 85% dark chocolate bar with gold foil and embossed cocoa squares"
-                width={1200}
-                height={750}
-                className="bar-image"
-                sizes="(max-width: 768px) 100vw, 55vw"
-                priority
-              />
-            </div>
-            <div className="bar-copy">
-              <p className="section-label">The Bar</p>
-              <h2 id="bar-heading">85% cocoa. Nothing louder than the chocolate.</h2>
-              <p className="section-intro">
-                AFTERDARK is a premium dark-chocolate concept built around one
-                bar — product-first imagery, restrained type, and a story you
-                feel as you scroll. No checkout in this demo; the invitation is
-                to discover character, not to buy.
-              </p>
-              <ul className="bar-facts">
-                <li>
-                  <span className="fact-label">Cocoa</span>
-                  <span className="fact-value">85% · concept blend</span>
-                </li>
-                <li>
-                  <span className="fact-label">Character</span>
-                  <span className="fact-value">Bold · Roasted · Silky</span>
-                </li>
-                <li>
-                  <span className="fact-label">Price / stock</span>
-                  <span className="fact-value">Omitted — concept only</span>
-                </li>
-              </ul>
-              <a className="btn-primary" href="#tasting">
-                Explore tasting notes
-                <span aria-hidden="true"> →</span>
-              </a>
-            </div>
-          </div>
-        </section>
-
-        {/* Tasting Notes */}
-        <section
-          id="tasting"
-          className="section tasting-section"
-          aria-labelledby="tasting-heading"
-        >
-          <div className="section-inner">
-            <p className="section-label">Tasting Notes</p>
-            <h2 id="tasting-heading">Three ways into the dark.</h2>
-            <p className="section-intro tasting-intro">
-              Distinct flavour profiles give visitors clear points of comparison
-              — Bold, Roasted, and Silky — without competing with the product
-              itself.
-            </p>
-
-            <div className="profile-grid">
-              {PROFILES.map((p) => (
-                <article key={p.name} className="profile-card">
-                  <header className="profile-head">
-                    <h3>{p.name}</h3>
-                    <span className="profile-cocoa">{p.cocoa}</span>
-                  </header>
-                  <p className="profile-line">{p.line}</p>
-                  <ul className="profile-notes">
-                    {p.notes.map((n) => (
-                      <li key={n}>{n}</li>
-                    ))}
-                  </ul>
-                </article>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* The Ritual */}
-        <section
-          id="ritual"
-          className="section ritual-section"
-          aria-labelledby="ritual-heading"
-        >
-          <div className="section-inner">
-            <p className="section-label">The Ritual</p>
-            <h2 id="ritual-heading">How to meet the bar.</h2>
-            <p className="section-intro">
-              A short tasting ritual — break, warm, melt, finish — so the story
-              lands before anyone asks about a cart.
-            </p>
-
-            <ol className="ritual-list">
-              {RITUAL.map((r) => (
-                <li key={r.step} className="ritual-step">
-                  <span className="ritual-num" aria-hidden="true">
-                    {r.step}
-                  </span>
-                  <div>
-                    <h3>{r.title}</h3>
-                    <p>{r.line}</p>
-                  </div>
-                </li>
-              ))}
-            </ol>
-          </div>
-        </section>
-
-        {/* Concept disclaimer */}
-        <section
-          className="section disclaimer-section"
-          aria-labelledby="disclaimer-heading"
-        >
-          <div className="section-inner disclaimer-card">
-            <p className="section-label">Concept</p>
-            <h2 id="disclaimer-heading">A product story you can feel as you scroll.</h2>
+        <section className="ad-hero hero" id="top" aria-labelledby="hero-title">
+          <p className="kicker">DARK CHOCOLATE · 85% COCOA</p>
+          <h1 id="hero-title">GO DARK.</h1>
+          <PackReveal />
+          <div className="hero-meta">
             <p>
-              This is a <strong>self-initiated concept demo</strong> for
-              portfolio use — not a live chocolate brand, not a store, and not a
-              client endorsement. There is no checkout, payment, inventory, or
-              measured results here. Design goals only: stronger product
-              understanding and a memorable first impression.
+              Deep cocoa. A slow melt.
+              <br />A finish that stays.
+            </p>
+            <a className="button button-primary" href="#bar">
+              Discover the bar <span aria-hidden="true">↘</span>
+            </a>
+            <p className="concept-chip">
+              Self-initiated concept demo. Not a live store.
             </p>
           </div>
+          <p className="scroll-cue">
+            SCROLL TO DISCOVER <span aria-hidden="true">↓</span>
+          </p>
+        </section>
+
+        <section className="snap-scene" id="bar" aria-labelledby="bar-title">
+          <Image
+            src="/snap-v3.webp"
+            alt="A dark chocolate bar snapping into two pieces, with cocoa crumbs in the air"
+            width={1672}
+            height={941}
+            className="scene-img"
+            sizes="100vw"
+          />
+          <div className="snap-shade" aria-hidden="true" />
+          <div className="snap-copy">
+            <p className="kicker">01 · THE SIGNATURE BAR</p>
+            <h2 id="bar-title">
+              A CLEAN
+              <br />
+              BREAK.
+            </h2>
+            <p className="editorial-lead">
+              One unapologetic cocoa hit, with just enough sweetness to pull you
+              back for another square.
+            </p>
+          </div>
+          <div className="bar-facts" aria-label="Product facts">
+            <span>
+              <strong>85%</strong> cocoa
+            </span>
+            <span>
+              <strong>01</strong> signature bar
+            </span>
+            <span>
+              <strong>∞</strong> character
+            </span>
+          </div>
+        </section>
+
+        <TastingNotes />
+
+        <section className="story" aria-labelledby="story-title">
+          <div className="story-text">
+            <p className="kicker">03 · OUR DARK SIDE</p>
+            <h2 id="story-title">
+              SOME THINGS
+              <br />
+              ARE BETTER
+              <br />
+              <em>AFTER DARK.</em>
+            </h2>
+            <div className="story-columns">
+              <p>
+                One more email can wait. The washing-up can wait. This square,
+                this moment, is all yours.
+              </p>
+              <p>
+                AFTERDARK is a love letter to chocolate with an edge—made for
+                slow evenings, strong coffee and the bitter side of sweet.
+              </p>
+            </div>
+          </div>
+          <div className="story-mark" aria-hidden="true">
+            A
+          </div>
+        </section>
+
+        <section
+          className="ritual-scene ritual"
+          id="ritual"
+          aria-labelledby="ritual-title"
+        >
+          <Image
+            src="/melt-v3.webp"
+            alt="Glossy folds of melted dark chocolate with a dusting of cocoa"
+            width={1672}
+            height={941}
+            className="scene-img"
+            sizes="100vw"
+          />
+          <div className="ritual-shade" aria-hidden="true" />
+          <div className="ritual-copy">
+            <p className="kicker">04 · THE SLOW RITUAL</p>
+            <h2 id="ritual-title">
+              MAKE IT
+              <br />A MOMENT.
+            </h2>
+            <div className="ritual-steps">
+              <article>
+                <span>01</span>
+                <h3>SNAP.</h3>
+                <p>Break off a square. Listen for the clean break.</p>
+              </article>
+              <article>
+                <span>02</span>
+                <h3>SLOW.</h3>
+                <p>Let it soften. Give the cocoa time to open.</p>
+              </article>
+              <article>
+                <span>03</span>
+                <h3>STAY.</h3>
+                <p>
+                  Notice what lingers. Strong coffee makes a fine companion.
+                </p>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <section
+          className="closing-scene closing"
+          aria-labelledby="closing-title"
+        >
+          <div className="closing-copy">
+            <p className="kicker">YOUR NEXT LITTLE OBSESSION</p>
+            <h2 id="closing-title">
+              GIVE IN TO
+              <br />
+              THE DARK.
+            </h2>
+            <a className="button button-primary" href="#bar">
+              Discover 85% dark <span aria-hidden="true">↗</span>
+            </a>
+            <p className="concept-chip">
+              Concept demo — no checkout, payment, or inventory.
+            </p>
+          </div>
+          <Image
+            src="/pack-v3.webp"
+            alt="AFTERDARK 85% dark chocolate in a deep cocoa and antique-gold wrapper"
+            width={1024}
+            height={1536}
+            className="closing-pack"
+            sizes="(max-width: 768px) 60vw, 280px"
+          />
         </section>
       </main>
 
-      <footer className="site-footer">
-        <div className="footer-inner">
-          <p className="footer-brand">
-            AFTERDARK<span className="logo-mark">®</span>
-          </p>
-          <p className="footer-note">
-            Self-initiated concept demo. Not a live store. No purchase path in
-            this build.
-          </p>
-          <nav className="footer-nav" aria-label="Footer">
-            <a href="#bar">The Bar</a>
-            <a href="#tasting">Tasting Notes</a>
-            <a href="#ritual">The Ritual</a>
-            <a href="#top">Back to top</a>
-          </nav>
-        </div>
+      <footer className="site-footer ad-footer">
+        <a className="brand" href="#top">
+          AFTERDARK<sup>®</sup>
+        </a>
+        <p>85% COCOA. 100% CHARACTER.</p>
+        <a href="#top">Back to top ↑</a>
+        <small>
+          AFTERDARK is a concept brand. Product imagery and tasting descriptions
+          are illustrative. Self-initiated demo — not a live store.
+        </small>
       </footer>
     </>
   );
