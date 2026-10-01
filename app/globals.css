@@ -183,6 +183,11 @@ select {
   margin-left: auto;
 }
 
+/* Keep desktop action cluster hidden until lg — .nav-actions alone must not unhide it */
+.nav-actions.nav-desktop {
+  display: none;
+}
+
 .btn-ghost {
   display: inline-flex;
   align-items: center;
